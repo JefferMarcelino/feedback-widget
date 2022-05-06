@@ -7,11 +7,13 @@ import { ScreenshotButton } from "../ScreenshotButton"
 interface FeedbackContentStepProps {
     feedbackType: FeedbackType
     onFeedbackRestartRequested: () => void
-}
+    onFeedbackSent: () => void
+} 
 
 export function FeedbackContentStep({ 
     feedbackType, 
-    onFeedbackRestartRequested 
+    onFeedbackRestartRequested, 
+    onFeedbackSent
 }: FeedbackContentStepProps) {
     
     const [ screenshot, setScreenshot ] = useState<string | null>(null)
@@ -25,6 +27,8 @@ export function FeedbackContentStep({
             screenshot,
             comment
         })
+
+        onFeedbackSent()
     }
 
     return(
@@ -51,7 +55,7 @@ export function FeedbackContentStep({
             
             <form className="my-4 w-full" onSubmit={handleSubmitFeedback}>
                 <textarea
-                className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-2 p-1 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-5 focus:outline-none resize-none"
+                className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-2 p-1 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-5 focus:outline-none resize-none scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin"
                 placeholder="Conte com detalhes o que está acontecendo..."
                 onChange={(event) => setComment(event.target.value)}
                 />
